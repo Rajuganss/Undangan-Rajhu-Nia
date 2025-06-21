@@ -219,3 +219,36 @@
     setInterval(createLeaf, 800);
   </script></body>
 </html>
+<!-- Tambahkan ini di dalam slide-2 -->
+<div class="divider"></div>
+<h3>Kirim Doa & Ucapan</h3>
+<form id="guestForm" onsubmit="submitWish(event)" style="margin-top: 1rem">
+  <input type="text" id="guestName" placeholder="Nama Anda" required style="padding: 8px; width: 90%; margin-bottom: 8px; border-radius: 8px; border: 1px solid #ccc;" /><br />
+  <textarea id="guestMessage" placeholder="Ucapan / Doa" required style="padding: 8px; width: 90%; border-radius: 8px; border: 1px solid #ccc;"></textarea><br />
+  <button type="submit" style="margin-top: 10px; padding: 8px 16px; background: #d4af37; color: white; border: none; border-radius: 8px;">Kirim</button>
+</form>
+<div id="wishList" style="margin-top: 1rem; text-align: left; max-height: 200px; overflow-y: auto; padding: 0 1rem;"></div>
+
+<!-- Tambahkan ini di akhir sebelum </body> -->
+<script>
+  function submitWish(e) {
+    e.preventDefault();
+    const name = document.getElementById("guestName").value;
+    const message = document.getElementById("guestMessage").value;
+    const data = { name, message };
+
+    let wishes = JSON.parse(localStorage.getItem("wishes") || "[]");
+    wishes.unshift(data);
+    localStorage.setItem("wishes", JSON.stringify(wishes));
+    document.getElementById("guestForm").reset();
+    renderWishes();
+  }
+
+  function renderWishes() {
+    const container = document.getElementById("wishList");
+    const wishes = JSON.parse(localStorage.getItem("wishes") || "[]");
+    container.innerHTML = wishes.map(w => `<p><strong>${w.name}</strong>:<br/><em>${w.message}</em></p>`).join('');
+  }
+
+  renderWishes();
+</script>
