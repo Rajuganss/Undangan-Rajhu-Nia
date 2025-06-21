@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -6,249 +7,133 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg-light: #fef9f4;
+      --bg-dark: #1a1a1a;
+      --text-light: #4d3b1f;
+      --text-dark: #eee;
+      --accent: #d4af37;
+    }
+    [data-theme="light"] {
+      --bg-color: var(--bg-light);
+      --text-color: var(--text-light);
+    }
+    [data-theme="dark"] {
+      --bg-color: var(--bg-dark);
+      --text-color: var(--text-dark);
+    }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #fef9f4;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
       overflow: hidden;
     }
-    .swiper {
-      width: 100vw;
-      height: 100vh;
-    }
-    .slide {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      position: relative;
-    }
-    .slide-1 {
-      background: url('foto1.jpg') center/cover no-repeat;
-      color: white;
-    }
-    .slide-2 {
-      background: url('https://www.transparenttextures.com/patterns/leaf.png'), #fefcf8;
-      background-size: contain;
-      color: #4d3b1f;
-    }
-    .nama {
-      font-family: 'Great Vibes', cursive;
-      font-size: 8vw;
-      color: #fff8dc;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-    }
-    .subtitle {
-      font-size: 1rem;
-      margin-top: 10px;
-      color: #fffbe7;
-    }
-    .slide-hint {
-      position: absolute;
-      bottom: 80px;
-      font-size: 14px;
-      color: #fff;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 6px 12px;
-      border-radius: 12px;
-      animation: bounce 2s infinite;
-    }
-    .next-button {
-      position: absolute;
-      bottom: 20px;
-      padding: 10px 20px;
-      background: #d4af37;
-      color: white;
+    .dark-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 999;
+      background: var(--accent);
       border: none;
-      border-radius: 20px;
-      font-size: 14px;
-      cursor: pointer;
-      z-index: 10;
-    }
-    .info {
-      max-width: 90vw;
-      margin: auto;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-    .divider {
-      width: 80px;
-      height: 3px;
-      background: linear-gradient(to right, #d4af37, #fff6c1);
-      margin: 1rem auto;
-      border-radius: 2px;
-    }
-    .maps-btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-      background: #d4af37;
-      color: white;
       border-radius: 8px;
-      text-decoration: none;
-    }
-    .galeri {
-      display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      padding: 1rem 0;
-      justify-content: center;
-    }
-    .galeri img {
-      border-radius: 12px;
-      height: 200px;
-      object-fit: cover;
-    }
-    .countdown {
-      margin-top: 1rem;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #d4af37;
-    }
-    .leaf {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background-image: url('https://pngimg.com/uploads/leaf/leaf_PNG36888.png');
-      background-size: cover;
-      animation: fall linear infinite;
-      z-index: 0;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-    @keyframes fall {
-      0% {
-        transform: translateY(-10%) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-    @media (max-width: 600px) {
-      .nama {
-        font-size: 10vw;
-      }
-      .info {
-        font-size: 0.95rem;
-      }
+      padding: 8px 14px;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <audio id="bg-music" autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/04/audio_7f1fe0f912.mp3" type="audio/mpeg">
-  </audio>  <div class="swiper">
-    <div class="swiper-wrapper">
-      <!-- Slide 1 -->
-      <div class="swiper-slide slide slide-1">
-        <div class="nama">Rajhu Dwi Septiandi & Sonia</div>
-        <div class="subtitle">Dengan memohon rahmat dan ridho Allah SWT</div>
-        <div class="slide-hint">Geser halaman atau tekan tombol di bawah</div>
-        <button class="next-button" onclick="swiper.slideNext()">Lanjut ke Undangan</button>
-      </div><!-- Slide 2 -->
-  <div class="swiper-slide slide slide-2">
-    <div class="info">
-      <h2>Detail Acara</h2>
-      <div class="divider"></div>
-      <p><strong>Akad Nikah</strong><br>
-      Kamis, 03 Juli 2025 - 10.00 WIB<br>
-      KUA Tembilahan Kota</p>
-      <p><strong>Resepsi</strong><br>
-      Minggu, 06 Juli 2025 - 13.00 WIB<br>
-      Tembilahan, Jalan Terusan Mas, Gang Suka Jadi</p>
-      <div class="divider"></div>
-      <p>
-        Putra dari Bapak Sopiandy & Ibu Dewi<br>
-        Putri dari Bapak Maspar & Ibu Rita Wati
-      </p>
-      <a href="https://maps.app.goo.gl/UANTUb49zNwoffTQA?g_st=aw" class="maps-btn" target="_blank">📍 Lihat Lokasi</a>
-      <div class="divider"></div>
-      <div class="galeri">
-        <img src="foto1.jpg" alt="foto1">
-        <img src="foto2.jpg" alt="foto2">
-        <img src="foto3.jpg" alt="foto3">
-      </div>
-      <div class="countdown" id="countdown"></div>
-      <p style="margin-top:1rem; font-style:italic">
-        Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
-      </p>
-    </div>
-  </div>
-</div>
+  <button class="dark-toggle" onclick="toggleTheme()">🌙 Mode Malam</button>
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/04/audio_7f1fe0f912.mp3" type="audio/mpeg" />
+  </audio>
 
-  </div>  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>  <script>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+
+      <!-- Slide 1 -->
+      <div class="swiper-slide" style="background: url('foto1.jpg') center/cover no-repeat; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;">
+        <h1 style="font-family: 'Great Vibes', cursive; font-size: 8vw; color: white;">Rajhu Dwi Septiandi & Sonia</h1>
+        <p style="color: white;">Dengan memohon rahmat dan ridho Allah SWT</p>
+        <button onclick="swiper.slideNext()" style="margin-top: 30px; padding: 10px 20px; background: #d4af37; color: white; border: none; border-radius: 20px;">Lanjut ke Undangan</button>
+      </div> 
+      <!-- Slide 2 -->
+      <div class="swiper-slide" style="background: url('https://www.toptal.com/designers/subtlepatterns/uploads/canvas.png') repeat; padding: 20px; text-align: center;">
+        <h2>Detail Acara</h2>
+        <p><strong>Akad Nikah:</strong><br>Kamis, 03 Juli 2025 – 10.00 WIB<br>KUA Tembilahan Kota</p>
+        <p><strong>Resepsi:</strong><br>Minggu, 06 Juli 2025 – 13.00 WIB<br>Jl. Terusan Mas, Gg. Suka Jadi</p>
+        <hr />
+        <h3>Rajhu Dwi Septiandi</h3>
+        <p style="font-size: 0.9rem;">Putra dari Bapak Sopiandy & Ibu Dewi</p>
+        <h3>Sonia</h3>
+        <p style="font-size: 0.9rem;">Putri dari Bapak Maspar & Ibu Rita Wati</p>
+        <a href="https://maps.app.goo.gl/UANTUb49zNwoffTQA?g_st=aw" target="_blank" style="background: #d4af37; color: white; padding: 8px 16px; border-radius: 8px; display: inline-block; margin: 10px 0;">📍 Lihat Lokasi</a>
+        <div style="display: flex; gap: 10px; overflow-x: auto; margin: 20px 0;">
+          <img src="foto1.jpg" height="150" />
+          <img src="foto2.jpg" height="150" />
+          <img src="foto3.jpg" height="150" />
+        </div>
+        <div id="countdown"></div>
+
+        <h3>Kirim Doa & Ucapan</h3>
+        <form onsubmit="submitWish(event)">
+          <input id="guestName" placeholder="Nama Anda" required style="padding: 6px; width: 90%;" /><br />
+          <textarea id="guestMessage" placeholder="Ucapan/Doa" required style="width: 90%; padding: 6px;"></textarea><br />
+          <button type="submit" style="background: #d4af37; color: white; padding: 6px 12px; border: none; border-radius: 6px;">Kirim</button>
+        </form>
+        <div id="wishList" style="margin-top: 10px; text-align: left;"></div>
+
+      </div> <!-- end slide 2 -->
+    </div> <!-- end swiper-wrapper -->
+  </div> <!-- end swiper -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script>
     const swiper = new Swiper('.swiper', {
       direction: 'horizontal',
       loop: false,
-      effect: 'slide',
-      spaceBetween: 30,
     });
 
-    // Countdown
-    const countdownEl = document.getElementById('countdown');
-    const targetDate = new Date("2025-07-03T10:00:00").getTime();
+    const countdownEl = document.getElementById("countdown");
+    const eventDate = new Date("2025-07-03T10:00:00").getTime();
     setInterval(() => {
       const now = new Date().getTime();
-      const diff = targetDate - now;
-      if (diff < 0) {
-        countdownEl.innerHTML = "Acara telah berlangsung";
-        return;
-      }
+      const diff = eventDate - now;
+      if (diff < 0) return countdownEl.innerText = "Acara telah berlangsung";
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      countdownEl.innerHTML = `Countdown: ${days}h ${hours}j ${minutes}m ${seconds}d`;
+      countdownEl.innerText = `Countdown: ${days}h ${hours}j ${minutes}m ${seconds}d`;
     }, 1000);
 
-    // Falling leaves effect
-    function createLeaf() {
-      const leaf = document.createElement('div');
-      leaf.classList.add('leaf');
-      leaf.style.left = Math.random() * 100 + 'vw';
-      leaf.style.animationDuration = (4 + Math.random() * 6) + 's';
-      document.body.appendChild(leaf);
-      setTimeout(() => leaf.remove(), 10000);
+    function submitWish(e) {
+      e.preventDefault();
+      const name = document.getElementById('guestName').value;
+      const message = document.getElementById('guestMessage').value;
+      const data = { name, message };
+      let wishes = JSON.parse(localStorage.getItem('wishes') || '[]');
+      wishes.unshift(data);
+      localStorage.setItem('wishes', JSON.stringify(wishes));
+      e.target.reset();
+      renderWishes();
     }
-    setInterval(createLeaf, 800);
-  </script></body>
-</html>
-<!-- Tambahkan ini di dalam slide-2 -->
-<div class="divider"></div>
-<h3>Kirim Doa & Ucapan</h3>
-<form id="guestForm" onsubmit="submitWish(event)" style="margin-top: 1rem">
-  <input type="text" id="guestName" placeholder="Nama Anda" required style="padding: 8px; width: 90%; margin-bottom: 8px; border-radius: 8px; border: 1px solid #ccc;" /><br />
-  <textarea id="guestMessage" placeholder="Ucapan / Doa" required style="padding: 8px; width: 90%; border-radius: 8px; border: 1px solid #ccc;"></textarea><br />
-  <button type="submit" style="margin-top: 10px; padding: 8px 16px; background: #d4af37; color: white; border: none; border-radius: 8px;">Kirim</button>
-</form>
-<div id="wishList" style="margin-top: 1rem; text-align: left; max-height: 200px; overflow-y: auto; padding: 0 1rem;"></div>
 
-<!-- Tambahkan ini di akhir sebelum </body> -->
-<script>
-  function submitWish(e) {
-    e.preventDefault();
-    const name = document.getElementById("guestName").value;
-    const message = document.getElementById("guestMessage").value;
-    const data = { name, message };
-
-    let wishes = JSON.parse(localStorage.getItem("wishes") || "[]");
-    wishes.unshift(data);
-    localStorage.setItem("wishes", JSON.stringify(wishes));
-    document.getElementById("guestForm").reset();
+    function renderWishes() {
+      const container = document.getElementById('wishList');
+      const wishes = JSON.parse(localStorage.getItem('wishes') || '[]');
+      container.innerHTML = wishes.map(w => `<p><strong>${w.name}</strong>: <em>${w.message}</em></p>`).join('');
+    }
     renderWishes();
-  }
 
-  function renderWishes() {
-    const container = document.getElementById("wishList");
-    const wishes = JSON.parse(localStorage.getItem("wishes") || "[]");
-    container.innerHTML = wishes.map(w => `<p><strong>${w.name}</strong>:<br/><em>${w.message}</em></p>`).join('');
-  }
-
-  renderWishes();
-</script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isLight = html.getAttribute("data-theme") === "light";
+      html.setAttribute("data-theme", isLight ? "dark" : "light");
+      document.querySelector('.dark-toggle').textContent = isLight ? "☀️ Mode Siang" : "🌙 Mode Malam";
+    }
+  </script>
+</body>
+</html>
