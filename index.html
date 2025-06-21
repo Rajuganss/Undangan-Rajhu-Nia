@@ -2,15 +2,16 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Undangan Pernikahan</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: #fef9f4;
+      overflow: hidden;
     }
     .swiper {
       width: 100vw;
@@ -35,7 +36,7 @@
     }
     .nama {
       font-family: 'Great Vibes', cursive;
-      font-size: 3rem;
+      font-size: 8vw;
       color: #fff8dc;
       text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
@@ -46,7 +47,7 @@
     }
     .slide-hint {
       position: absolute;
-      bottom: 20px;
+      bottom: 60px;
       font-size: 14px;
       color: #fff;
       background: rgba(0, 0, 0, 0.3);
@@ -55,7 +56,7 @@
       animation: bounce 2s infinite;
     }
     .info {
-      max-width: 700px;
+      max-width: 90vw;
       margin: auto;
       font-size: 1rem;
       line-height: 1.6;
@@ -88,61 +89,93 @@
       height: 200px;
       object-fit: cover;
     }
-    audio {
-      display: none;
+    .music-control {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 999;
+    }
+    .countdown {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #d4af37;
+    }
+    .leaf {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-image: url('https://pngimg.com/uploads/leaf/leaf_PNG36888.png');
+      background-size: cover;
+      animation: fall linear infinite;
+      z-index: 0;
     }
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-5px); }
     }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10%) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    @media (max-width: 600px) {
+      .nama {
+        font-size: 10vw;
+      }
+      .info {
+        font-size: 0.95rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <audio autoplay loop>
+  <audio id="bg-music" loop>
     <source src="https://cdn.pixabay.com/audio/2022/03/04/audio_7f1fe0f912.mp3" type="audio/mpeg">
   </audio>
-
+  <div class="music-control" onclick="toggleMusic()">▶️ Play Musik</div>
   <div class="swiper">
     <div class="swiper-wrapper">
-
       <!-- Slide 1 -->
       <div class="swiper-slide slide slide-1">
         <div class="nama">Rajhu Dwi Septiandi & Sonia</div>
         <div class="subtitle">Dengan memohon rahmat dan ridho Allah SWT</div>
         <div class="slide-hint">Geser untuk melihat undangan &gt;</div>
       </div>
-
       <!-- Slide 2 -->
       <div class="swiper-slide slide slide-2">
         <div class="info">
           <h2>Detail Acara</h2>
           <div class="divider"></div>
-
           <p><strong>Akad Nikah</strong><br>
           Kamis, 03 Juli 2025 - 10.00 WIB<br>
           KUA Tembilahan Kota</p>
-
           <p><strong>Resepsi</strong><br>
           Minggu, 06 Juli 2025 - 13.00 WIB<br>
           Tembilahan, Jalan Terusan Mas, Gang Suka Jadi</p>
-
           <div class="divider"></div>
-
           <p>
             Putra dari Bapak Sopiandy & Ibu Dewi<br>
             Putri dari Bapak Maspar & Ibu Rita Wati
           </p>
-
           <a href="https://maps.app.goo.gl/UANTUb49zNwoffTQA?g_st=aw" class="maps-btn" target="_blank">📍 Lihat Lokasi</a>
-
           <div class="divider"></div>
-
           <div class="galeri">
             <img src="foto1.jpg" alt="foto1">
             <img src="foto2.jpg" alt="foto2">
             <img src="foto3.jpg" alt="foto3">
           </div>
-
+          <div class="countdown" id="countdown"></div>
           <p style="margin-top:1rem; font-style:italic">
             Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
           </p>
@@ -158,10 +191,48 @@
       loop: false,
       effect: 'slide',
       spaceBetween: 30,
-      pagination: {
-        el: '.swiper-pagination',
-      },
     });
+
+    const audio = document.getElementById('bg-music');
+    const control = document.querySelector('.music-control');
+
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+        control.textContent = '⏸️ Pause Musik';
+      } else {
+        audio.pause();
+        control.textContent = '▶️ Play Musik';
+      }
+    }
+
+    // Countdown
+    const countdownEl = document.getElementById('countdown');
+    const targetDate = new Date("2025-07-03T10:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+      if (diff < 0) {
+        countdownEl.innerHTML = "Acara telah berlangsung";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      countdownEl.innerHTML = `Countdown: ${days}h ${hours}j ${minutes}m ${seconds}d`;
+    }, 1000);
+
+    // Falling leaves effect
+    function createLeaf() {
+      const leaf = document.createElement('div');
+      leaf.classList.add('leaf');
+      leaf.style.left = Math.random() * 100 + 'vw';
+      leaf.style.animationDuration = (4 + Math.random() * 6) + 's';
+      document.body.appendChild(leaf);
+      setTimeout(() => leaf.remove(), 10000);
+    }
+    setInterval(createLeaf, 800);
   </script>
 </body>
 </html>
